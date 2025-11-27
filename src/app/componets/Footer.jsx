@@ -1,0 +1,26 @@
+import React from 'react'
+
+function Footer() {
+    return (
+        <div className=" flex max-sm:flex-col  max-sm:space-y-4 sm:justify-between w-10/12 pb-10 items-center">
+
+            {/* Left Image - BE UNITED AT CHRISTMAS */}
+            <img
+                src="/images/BE-logo.png"
+                alt="Be United At Christmas"
+                className="lg:h-16 h-6 w-auto md:object-cover "
+            />
+
+            {/* Right Image - BRIMBANK SHOPPING CENTRE */}
+            <img
+                src="/images/brimbank-logo.jpg"
+                alt="Brimbank Shopping Centre Logo"
+                className="lg:h-24 h-12 w-auto md:object-cover "
+            />
+
+        </div>
+
+    )
+}
+
+export default Footer
