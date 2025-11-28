@@ -5,13 +5,13 @@ import LoaderIcon from "./LoaderIcon";
 import { toast } from "sonner";
 import { usePlayerStore } from "../store/usePlayerStore";
 
+
 export default function RegistrationForm() {
     const inputClass =
         "w-full p-3 xl:p-4 xl:mb-8 mb-5 bg-white caret-primary-blue text-primary-blue font-medium text-[15px] xl:text-lg outline-none";
     const labelClass = "text-white text-[15px] font-medium xl:text-xl block mb-2 text-center";
 
     const [isLoading, setIsLoading] = useState(false);
-
 
     const setPlayerId = usePlayerStore((state) => state.setPlayerId);
 
@@ -35,7 +35,7 @@ export default function RegistrationForm() {
         if (result.success) {
             setPlayerId(result.data.user_id);
             console.log(result.data.user_id);
-            
+
             toast.success("Registration successful!");
             e.target.reset();
         } else {

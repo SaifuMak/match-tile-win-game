@@ -9,3 +9,24 @@
 .flex-center {
   @apply flex justify-center items-center
 }
+
+
+/* enables 3D rotation */
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+/* stops the other side from showing */
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* back should be rotated initially */
+.rotateY-180 {
+  transform: rotateY(180deg);
+}
+
+/* perspective wrapper */
+.perspective-1000 {
+  perspective: 1000px;
+}
