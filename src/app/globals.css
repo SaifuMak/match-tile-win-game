@@ -4,3 +4,8 @@
 @theme base {
   --color-primary-blue: #628FCA;
 }
+
+
+.flex-center {
+  @apply flex justify-center items-center
+}

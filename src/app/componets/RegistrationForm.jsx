@@ -1,14 +1,24 @@
 "use client";
 import { registerUser } from "../actions/auth";
+import { useState } from "react";
+import LoaderIcon from "./LoaderIcon";
+import { toast } from "sonner";
+import { usePlayerStore } from "../store/usePlayerStore";
 
 export default function RegistrationForm() {
     const inputClass =
         "w-full p-3 xl:p-4 xl:mb-8 mb-5 bg-white caret-primary-blue text-primary-blue font-medium text-[15px] xl:text-lg outline-none";
     const labelClass = "text-white text-[15px] font-medium xl:text-xl block mb-2 text-center";
 
+    const [isLoading, setIsLoading] = useState(false);
+
+
+    const setPlayerId = usePlayerStore((state) => state.setPlayerId);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        toast.dismiss();
 
         const formData = new FormData(e.currentTarget);
 
@@ -20,12 +30,17 @@ export default function RegistrationForm() {
         };
 
         const result = await registerUser(data);
+        setIsLoading(false);
 
         if (result.success) {
-            alert("Registration successful!");
+            setPlayerId(result.data.user_id);
+            console.log(result.data.user_id);
+            
+            toast.success("Registration successful!");
             e.target.reset();
         } else {
-            alert(`Registration failed: ${result.error}`);
+            setPlayerId(null);
+            toast.error(`Registration failed: ${result.error}`);
         }
     };
 
@@ -47,8 +62,8 @@ export default function RegistrationForm() {
                 <input type="text" name="city" className={inputClass} required />
 
 
-                <button type="submit" className=" mt-5 xl:w-[190px] w-[170px] xl:h-[50px] h-[40px] cursor-pointer  bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
-                    START
+                <button type="submit" className=" mt-5 xl:w-[190px] flex-center mx-auto w-[170px] xl:h-[50px] h-[40px] cursor-pointer  bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
+                    {isLoading ? <LoaderIcon /> : "START"}
                 </button>
             </form>
         </div>
