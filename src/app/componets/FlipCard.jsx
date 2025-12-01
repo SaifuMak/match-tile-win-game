@@ -2,7 +2,7 @@
 import { useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { gsap } from "gsap";
 
-const FlipCard = forwardRef(({ img }, ref) => {
+const FlipCard = forwardRef(({ img, handleCardClick }, ref) => {
   const cardRef = useRef(null);
   const [flipped, setFlipped] = useState(false);
 
@@ -10,26 +10,28 @@ const FlipCard = forwardRef(({ img }, ref) => {
     setFlipped(showBack);
     gsap.to(cardRef.current, {
       rotateY: showBack ? 180 : 0,
-      duration: 0.8,
+      duration: 0.5,
       ease: "power2.inOut",
+    });``
+  };
+
+
+  const handleRevealCard = () => {
+    if (flipped) return; // prevent clicking if already flipped
+    handleCardClick();
+    flipTo(!flipped);
+  };
+
+  const fadeInOut = () => {
+    gsap.to(cardRef.current, {
+      opacity: 0,
+      scale: 0,
+      duration: 0.5,
+      ease: "power2.inOut",
+
     });
   };
 
-//   const handleFlip = () => {
-//     const next = !flipped;
-//     setFlipped(next);
-//     gsap.to(cardRef.current, {
-//       rotateY: next ? 180 : 0,
-//       duration: 0.8,
-//       ease: "power2.inOut",
-//     });
-//   };
-
-const handleRevealCard = () => {
-    if (!flipped) {
-      flipTo(true);
-    }
-  };
 
   // expose methods to parent
   useImperativeHandle(ref, () => ({
@@ -38,18 +40,24 @@ const handleRevealCard = () => {
     },
     hide() {
       flipTo(false);
+    },
+    fadeInOut() {
+      fadeInOut();
     }
   }));
 
+
+
   return (
     <div className="w-[180px] h-[180px] perspective-1000">
-      <div ref={cardRef}  onClick={handleRevealCard} className="relative  w-full h-full transform-style-3d">
+      <div ref={cardRef} onClick={handleRevealCard} className="relative  w-full h-full transform-style-3d">
 
         {/* FRONT */}
         <div className="absolute inset-0 cursor-pointer bg-white backface-hidden"></div>
 
         {/* BACK */}
         <div className="absolute  inset-0 rotateY-180 backface-hidden">
+          {/* <p className=" hidden">{img}</p> */}
           <img src={img} className="w-full h-full object-cover" />
         </div>
 

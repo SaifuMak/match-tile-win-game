@@ -4,7 +4,7 @@ import { useState } from "react";
 import LoaderIcon from "./LoaderIcon";
 import { toast } from "sonner";
 import { usePlayerStore } from "../store/usePlayerStore";
-
+import { useRouter } from "next/navigation";
 
 export default function RegistrationForm() {
     const inputClass =
@@ -14,6 +14,11 @@ export default function RegistrationForm() {
     const [isLoading, setIsLoading] = useState(false);
 
     const setPlayerId = usePlayerStore((state) => state.setPlayerId);
+    const setPoints = usePlayerStore((state) => state.setPoints);
+    const resetPlayer = usePlayerStore((state) => state.resetPlayer);
+
+    const router = useRouter();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,12 +39,13 @@ export default function RegistrationForm() {
 
         if (result.success) {
             setPlayerId(result.data.user_id);
-            console.log(result.data.user_id);
+            setPoints(0);
 
-            toast.success("Registration successful!");
+            toast.success("Registration successful! please start the game.");
             e.target.reset();
+            router.push('/play-game');
         } else {
-            setPlayerId(null);
+            resetPlayer();
             toast.error(`Registration failed: ${result.error}`);
         }
     };

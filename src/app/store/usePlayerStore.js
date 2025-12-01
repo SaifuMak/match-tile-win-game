@@ -5,17 +5,20 @@ export const usePlayerStore = create(
   persist(
     (set) => ({
       playerId: null,
-      time: 0,
+      playerTime: 0,
       points: 0,
 
       setPlayerId: (id) => set({ playerId: id }),
-      setTime: (time) => set({ time }),
+      setPlayerTime: (time) => set({ playerTime: time }),
       setPoints: (points) => set({ points }),
-      resetPlayer: () => set({ playerId: null, time: 0, points: 0 }),
+      increasePoints: (amount=1) =>   set((state) => ({ points: state.points + amount })),
+
+
+      resetPlayer: () => set({ playerId: null, playerTime: 0, points: 0 }),
     }),
 
     {
-      name: "player-storage", 
+      name: "player-storage",
     }
   )
 );

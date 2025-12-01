@@ -1,5 +1,6 @@
 import Footer from "./componets/Footer";
 import Banner from "./componets/Banner";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -27,9 +28,9 @@ export default function Home() {
 
         </div>
 
-        <button className="2xl:mt-10 mt-7 px-8 2xl:py-2 cursor-pointer py-1.5 bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
+        <Link href="/registration" className="2xl:mt-10 mt-7 px-8 2xl:py-2 inline-block cursor-pointer py-1.5 bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
           PLAY GAME
-        </button>
+        </Link>
 
       </section>
 
