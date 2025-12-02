@@ -34,6 +34,7 @@ export default function RegistrationForm() {
             city: formData.get("city"),
         };
 
+        
         const result = await registerUser(data);
         setIsLoading(false);
 

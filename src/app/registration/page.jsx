@@ -2,6 +2,7 @@ import Footer from "../componets/Footer";
 import Banner from "../componets/Banner";
 import RegistrationForm from "../componets/RegistrationForm";
 
+
 export default function Registration() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden  bg-primary-blue flex flex-col items-center justify-start">

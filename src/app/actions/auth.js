@@ -1,4 +1,4 @@
-'use server';
+// 'use server';
 
 import AXIOS_INSTANCE from "../../../lib/axios";
 
@@ -10,6 +10,7 @@ export const registerUser = async (userData) => {
 
     } catch (error) {
         console.error('Registration error:', error);
+
         return { success: false, error: error.response ? error.response.data.error : 'Network Error! please try again.' };
     }
 }   
