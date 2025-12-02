@@ -2,7 +2,7 @@ import React from 'react'
 
 function Footer() {
     return (
-        <div className=" flex max-sm:flex-col  max-sm:space-y-4 sm:justify-between w-10/12 pb-10 items-center">
+        <div className=" flex max-sm:flex-col max-sm:mt-10  max-sm:space-y-4 justify-center sm:justify-between w-10/12 pb-10 items-center">
 
             {/* Left Image - BE UNITED AT CHRISTMAS */}
             <img

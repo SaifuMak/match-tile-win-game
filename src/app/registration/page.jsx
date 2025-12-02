@@ -11,8 +11,7 @@ export default function Registration() {
 
                 <h1 className="2xl:text-[40px] lg:text-3xl text-2xl font-bold">PLAY & WIN GIFT CARDS</h1>
                 <RegistrationForm />
-
-             
+                {/* <p className="">Lost your game in half way <span className="">Play Again</span> </p> */}
 
             </section>
 

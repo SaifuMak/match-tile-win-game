@@ -29,9 +29,10 @@ export default function PlayGame() {
     const setPoints = usePlayerStore((state) => state.setPoints);
     const setPlayerTime = usePlayerStore((state) => state.setPlayerTime);
     const increasePoints = usePlayerStore((state) => state.increasePoints);
-    const resetPlayer = usePlayerStore((state) => state.resetPlayer);
+    const setRewards = usePlayerStore((state) => state.setRewards);
+    const setWinStatus = usePlayerStore((state) => state.setWinStatus);
 
-    const { playerTime, playerId, points } = usePlayerStore();
+    const { playerId, points } = usePlayerStore();
 
     const shuffle = (array) => {
         let m = array.length, i;
@@ -42,9 +43,8 @@ export default function PlayGame() {
         return array;
     };
 
-
     const cardRefs = useRef([]);
-    const [time, setTime] = useState(5);
+    const [time, setTime] = useState(16);
     const [hasViewingTimeEnded, sethasViewingTimeEnded] = useState(false);
 
     const [selectedCards, setSelectedCards] = useState([]);
@@ -53,43 +53,81 @@ export default function PlayGame() {
     const [cardsArr, setCardsArr] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const playTimeRef = useRef(0);
+    const rewardTriggered = useRef(false);
 
     const [matchingState, setMatchingState] = useState(null)
 
     useEffect(() => {
-
         // check if playerId exists
         if (!playerId) {
+            console.log('Please register to play the game!');
+
             toast.success("Please register to play the game!");
             router.replace('/registration');
             return;
         }
         setIsLoading(false);
-        
+
         const shuffled = shuffle([...originalCards]);
         setCardsArr(shuffled);
     }, [playerId]);
 
+
+
     const handleReward = async (has_won = false) => {
+        if (rewardTriggered.current) return;
+        rewardTriggered.current = true;
+        setIsLoading(true);
+
         const data = {
             id: playerId,
-            time: playerTime,
+            time: playTimeRef.current - 5,
             points: points,
             has_won: has_won,
         }
-        await handleGiftCards(data);
+
+        const response = await handleGiftCards(data);
+        rewardTriggered.current = false;
+
+        if (response.success) {
+            console.log("Reward response: ", response.data?.reward);
+            setRewards(response.data?.reward || null);
+            response.data?.win_status ? setWinStatus(true) : setWinStatus(false);
+            router.replace('/congratulations');
+
+        } else {
+            setPoints(0);
+            setRewards(0);
+            setWinStatus(false);
+            // toast.error(response.error || "An error occurred while processing rewards.");
+            router.replace('/game-ended');
+        }
+        setTimeout(() => {
+            setIsLoading(false);
+
+        }, 800);
     }
 
     // time is exceeded and no points
-    const handleGameOver = () => {
-        router.replace('/game-over');
+    const handleGameTimeOut = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            router.replace('/game-over');
+        }, 1000);
     }
+
+    const handleGameOver = () => {
+        if (rewardTriggered.current) return;
+        const currentPoints = usePlayerStore.getState().points;
+        console.log(" these points are: ", currentPoints);
+        currentPoints >= 1 ? handleReward() : handleGameTimeOut()
+    };
 
 
     const handleCardClick = (index) => {
         if (lockBoard || selectedCards.includes(index) || matchedCards.includes(index) || !hasViewingTimeEnded) return;
 
-        cardRefs.current[index].reveal();
+        cardRefs?.current[index]?.reveal();
         const newSelectedCards = [...selectedCards, index];
         setSelectedCards(newSelectedCards);
 
@@ -110,8 +148,8 @@ export default function PlayGame() {
             // increase points by 1
             increasePoints();
             setTimeout(() => {
-                cardRefs.current[firstIndex]?.fadeInOut();
-                cardRefs.current[secondIndex]?.fadeInOut();
+                cardRefs?.current[firstIndex]?.fadeInOut();
+                cardRefs?.current[secondIndex]?.fadeInOut();
                 setMatchedCards((prev) => [...prev, firstIndex, secondIndex]);
                 setMatchingState(null);
                 setLockBoard(false);
@@ -120,8 +158,8 @@ export default function PlayGame() {
         } else {
             setMatchingState("no-match");
             setTimeout(() => {
-                cardRefs.current[firstIndex]?.hide();
-                cardRefs.current[secondIndex]?.hide();
+                cardRefs?.current[firstIndex]?.hide();
+                cardRefs?.current[secondIndex]?.hide();
                 setMatchingState(null);
                 setLockBoard(false);
             }, 600);
@@ -130,9 +168,9 @@ export default function PlayGame() {
         setSelectedCards([]);
     };
 
+    // this handles winning condition where all cards are matched
     useEffect(() => {
         if (matchedCards.length === cardsArr.length && cardsArr.length > 0) {
-            // router.replace('/congratulations');
             handleReward(true);
         }
     }, [matchedCards, cardsArr]);
@@ -150,14 +188,15 @@ export default function PlayGame() {
             setTime(prev => {
 
                 //  this is the total play time that includes the viewing time
-                if ( playTimeRef.current === 15) {
-                    points >= 1 ? handleReward() : handleGameOver()
+                if (playTimeRef.current === 76) {
+                    handleGameOver();
+
                 }
                 if (prev === 1) {
                     // when timer finishes → flip all back + restart timer
                     cardRefs.current.forEach((card) => card.hide());
                     sethasViewingTimeEnded(true);
-                    return 10;
+                    return 60;
                 }
                 return prev - 1;
             });
@@ -170,15 +209,14 @@ export default function PlayGame() {
 
     return (
         <div className="bg-primary-blue flex flex-col items-center min-h-screen">
-            <main className="  flex flex-col items-center gap-6 py-8 min-h-[90vh] w-full">
-                <h1 className={`text-4xl transition-all duration-500 mt-5 font-bold ${matchingState === 'match' ? 'text-green-500' : matchingState === 'no-match' ? 'text-red-500' : 'text-white'}`} >{!hasViewingTimeEnded ? ` Start memorizing now!` :
+            <main className="  flex flex-col items-center gap-1 lg:gap-6 py-4 lg:py-8 lg:min-h-[90vh] min-h-[70vh] w-full">
+                <h1 className={`2xl:text-4xl text-2xl lg:text-3xl transition-all duration-500 mt-5 font-bold ${matchingState === 'match' ? 'text-green-500' : matchingState === 'no-match' ? 'text-red-500' : 'text-white'}`} >{!hasViewingTimeEnded ? ` Start memorizing now!` :
                     matchingState === 'match' ? `ITS A MATCH!` : matchingState === 'no-match' ? `NOT A MATCH!` : `PICK CARDS NOW `}</h1>
-                <h2 className="text-white mt-3 text-4xl font-bold">
+                <h2 className="text-white lg:mt-3 text-xl lg:text-3xl 2xl:text-4xl font-bold">
                     {hasViewingTimeEnded ? `You have ${time} seconds...` : `${time} seconds remaining...`}
                 </h2>
-                <p className="">{points}</p>
 
-                <div className={`grid grid-cols-4 mt-12 gap-2 ${(hasViewingTimeEnded && !lockBoard) ? "pointer-events-auto" : "pointer-events-none"}`}>
+                <div className={`grid grid-cols-3  lg:grid-cols-4 mt-5 lg:mt-8 2xl:mt-12 gap-2 ${(hasViewingTimeEnded && !lockBoard) ? "pointer-events-auto" : "pointer-events-none"}`}>
                     {cardsArr.map((img, i) => (
                         <FlipCard
                             key={i}

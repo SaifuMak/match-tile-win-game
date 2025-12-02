@@ -8,11 +8,11 @@ const FlipCard = forwardRef(({ img, handleCardClick }, ref) => {
 
   const flipTo = (showBack) => {
     setFlipped(showBack);
-    gsap.to(cardRef.current, {
+    gsap.to(cardRef?.current, {
       rotateY: showBack ? 180 : 0,
       duration: 0.5,
       ease: "power2.inOut",
-    });``
+    });
   };
 
 
@@ -23,7 +23,7 @@ const FlipCard = forwardRef(({ img, handleCardClick }, ref) => {
   };
 
   const fadeInOut = () => {
-    gsap.to(cardRef.current, {
+    gsap.to(cardRef?.current, {
       opacity: 0,
       scale: 0,
       duration: 0.5,
@@ -49,7 +49,7 @@ const FlipCard = forwardRef(({ img, handleCardClick }, ref) => {
 
 
   return (
-    <div className="w-[180px] h-[180px] perspective-1000">
+    <div className=" 2xl:size-[180px] lg:size-[150px] sm:size-[120px] size-[100px] perspective-1000">
       <div ref={cardRef} onClick={handleRevealCard} className="relative  w-full h-full transform-style-3d">
 
         {/* FRONT */}

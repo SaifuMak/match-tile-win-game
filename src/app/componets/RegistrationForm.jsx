@@ -53,7 +53,7 @@ export default function RegistrationForm() {
 
     return (
         <div className="flex justify-center  items-center max-lg:mb-10 ">
-            <form className="lg:w-[600px]  text-center mt-12" onSubmit={handleSubmit}>
+            <form className="lg:w-[600px] w-full  text-center mt-12" onSubmit={handleSubmit}>
 
                 <label className={labelClass}>Full Name:</label>
                 <input type="text" name="fullName" className={inputClass} required />
