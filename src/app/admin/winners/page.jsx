@@ -2,7 +2,7 @@
 "use client";
 import Navbar from "@/app/componets/admin/Navbar";
 import Sidebar from "@/app/componets/admin/Sidebar";
-import { getWinners } from "@/app/actions/admin";
+import { getWinners, getAllWinners } from "@/app/actions/admin";
 import ParticipantsTable from "@/app/componets/admin/ParticipantsTable";
 import ParticipantsPagination from "@/app/componets/admin/ParticipantsPagination";
 import { getPageNumber, getTotalPagesCount } from "@/app/utils/PaginationHelpers";
@@ -13,7 +13,18 @@ import { toast } from "sonner";
 import LoaderIcon from "@/app/componets/LoaderIcon";
 import SearchComponent from "@/app/componets/admin/SearchComponent";
 
+
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import { exportToExcel } from "@/app/utils/ExportToExcel";
+
+
 export default function WinnersPage() {
+
+     dayjs.extend(utc);
+    dayjs.extend(timezone);
+
 
     const [participants, setParticipants] = useState([]);
     const [query, setQuery] = useState("");
@@ -49,6 +60,38 @@ export default function WinnersPage() {
         fetchWinners(1, query)
     }
 
+     const handleExport = (data) => {
+    
+            const formattedData = data.map((item) => ({
+                "Name": item.name || "",
+                "Email": item.email || "",
+                "Phone": item.phone || "",
+                "City": item.city || "",
+                "Has Played": item.has_played ? "Yes" : "No",
+                "Reward Won": item.reward ?? "",
+                "Has Won": item.has_won ? "Yes" : "No",
+                "Played At": item.played_at || "",
+                "Time Taken (secs)": item.time_taken || "",
+                "Retailer": item.retailer || "",
+                "Amount Spent": item.amount_spent || "",
+                "Invoice URL": item.invoice_public_url || item.invoice || "",
+            }));
+    
+            exportToExcel(formattedData, "Winners");
+        };
+    
+    
+        const getAllWinnersAndExport = async () => {
+            setIsLoading(true);
+            const response = await getAllWinners();
+            if (response.success) {
+                handleExport(response.data);
+            } else {
+                toast.error("Failed to fetch all participants for export. Please try again.");
+            }
+            setIsLoading(false);
+        };
+
     useEffect(() => {
         fetchWinners();
     }, []);
@@ -68,8 +111,11 @@ export default function WinnersPage() {
 
                 <div className=" bg-slate-50 mx-5 p-10 rounded-2xl w-full h-full min-h-[97vh] ">
 
-                    <div className=" flex justify-between ">
+                    <div className=" flex justify-between items-center ">
                          <h1 className=" text-3xl font-bold">Winners</h1>
+
+                        <button onClick={getAllWinnersAndExport} className=" cursor-pointer  bg-black/90 h-fit text-white text-sm  rounded-md px-4 py-1.5 font-medium  mx-10">Export Data</button>
+        
 
                         <div className="flex-1 max-w-2xl ml-auto">
                             <SearchComponent onSearch={onSearch} query={query} setQuery={setQuery} />

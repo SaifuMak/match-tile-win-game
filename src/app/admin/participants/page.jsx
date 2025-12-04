@@ -2,7 +2,7 @@
 "use client";
 import Navbar from "@/app/componets/admin/Navbar";
 import Sidebar from "@/app/componets/admin/Sidebar";
-import { getParticipants } from "@/app/actions/admin";
+import { getParticipants, getAllParticipants } from "@/app/actions/admin";
 import ParticipantsTable from "@/app/componets/admin/ParticipantsTable";
 import ParticipantsPagination from "@/app/componets/admin/ParticipantsPagination";
 import { getPageNumber, getTotalPagesCount } from "@/app/utils/PaginationHelpers";
@@ -10,11 +10,18 @@ import Pagination from "@/app/componets/Pagination";
 import LoaderIcon from "@/app/componets/LoaderIcon";
 import SearchComponent from "@/app/componets/admin/SearchComponent";
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import { exportToExcel } from "@/app/utils/ExportToExcel";
+
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 export default function ParticipantsPage() {
+    dayjs.extend(utc);
+    dayjs.extend(timezone);
 
     const [participants, setParticipants] = useState([]);
     const [query, setQuery] = useState("");
@@ -53,6 +60,37 @@ export default function ParticipantsPage() {
         fetchParticipants(1, query)
     }
 
+    const handleExport = (data) => {
+
+        const formattedData = data.map((item) => ({
+            "Name": item.name || "",
+            "Email": item.email || "",
+            "Phone": item.phone || "",
+            "City": item.city || "",
+            "Has Played": item.has_played ? "Yes" : "No",
+            "Reward Won": item.reward ?? "",
+            "Has Won": item.has_won ? "Yes" : "No",
+            "Played At": item.played_at || "",
+            "Time Taken (secs)": item.time_taken || "",
+            "Retailer": item.retailer || "",
+            "Amount Spent": item.amount_spent || "",
+            "Invoice URL": item.invoice_public_url || item.invoice || "",
+        }));
+
+        exportToExcel(formattedData, "Participants");
+    };
+
+
+    const getAllParticipantsAndExport = async () => {
+        setIsLoading(true);
+        const response = await getAllParticipants();
+        if (response.success) {
+            handleExport(response.data);
+        } else {
+            toast.error("Failed to fetch all participants for export. Please try again.");
+        }
+        setIsLoading(false);
+    };
 
     useEffect(() => {
         fetchParticipants();
@@ -72,8 +110,9 @@ export default function ParticipantsPage() {
                 {/* main content */}
 
                 <div className="bg-slate-50 relative mx-5 p-10 rounded-2xl w-full min-h-[97vh]">
-                    <div className=" flex justify-between ">
-                            <h1 className="text-3xl font-bold">Participants</h1>
+                    <div className=" flex justify-between items-center ">
+                        <h1 className="text-3xl font-bold">Participants</h1>
+                        <button onClick={getAllParticipantsAndExport} className=" cursor-pointer  bg-black/90 text-white text-sm  rounded-md px-4 py-1.5 font-medium  mx-10">Export Data</button>
 
                         <div className="flex-1 max-w-2xl ml-auto">
                             <SearchComponent onSearch={onSearch} query={query} setQuery={setQuery} />
