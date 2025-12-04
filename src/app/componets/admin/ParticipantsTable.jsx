@@ -23,10 +23,10 @@ export default function ParticipantsTable({ data }) {
                         <th className={tabelHeaderStyle}>Email</th>
                         <th className={tabelHeaderStyle}>Phone</th>
                         <th className={tabelHeaderStyle}>City</th>
+                        <th className={tabelHeaderStyle}>Won</th>
 
                         <th className={tabelHeaderStyle}>Reward</th>
-                        <th className={tabelHeaderStyle}>Won</th>
-                        <th className={tabelHeaderStyle}>Voucher</th>
+                        <th className={tabelHeaderStyle}>Receipt</th>
 
                         <th className={tabelHeaderStyle}>Played On</th>
                     </tr>
@@ -39,8 +39,7 @@ export default function ParticipantsTable({ data }) {
                             <td className={tableRowStyle}>{p.email}</td>
                             <td className={tableRowStyle}>{p.phone}</td>
                             <td className={tableRowStyle}>{p.city}</td>
-                            <td className={tableRowStyle}>{p.reward ? `$${p.reward}` : "Consolation"}</td>
-                            <td className={tableRowStyle}>
+                             <td className={tableRowStyle}>
                                 <span
                                     className={`px-2 py-1 rounded text-xs font-semibold ${p.has_won ? "bg-green-200 text-green-800" : "bg-red-200 text-red-700"
                                         }`}
@@ -48,6 +47,8 @@ export default function ParticipantsTable({ data }) {
                                     {p.has_won ? "Yes" : "No"}
                                 </span>
                             </td>
+                            <td className={tableRowStyle}>{p.reward ? `$${p.reward}` : "Consolation"}</td>
+                           
                             <td className={tableRowStyle}>
                                 {p.invoice_public_url ? <a href={p.invoice_public_url} className="text-white ml-3 text-sm bg-slate-500 px-2 py-0.5 rounded-sm " target="_blank" rel="noopener noreferrer">View</a> : "N/A"}
                             </td>
