@@ -2,15 +2,18 @@ import Image from "next/image";
 
 function Banner() {
   return (
-    <section className="w-full lg:h-[60vh] h-[40vh] relative">
+    // <section className="w-full lg:h-[60vh] h-[40vh] relative">
 
-      <Image
-        src="/images/banner.jpg"
-        alt="Christmas Dinner"
-        fill
-        className="lg:object-fill object-cover  lg:scale-x-101 w-full h-full"
-      />
+    //   <Image
+    //     src="/images/banner.jpg"
+    //     alt="Christmas Dinner"
+    //     fill
+    //     className="lg:object-fill object-cover  lg:scale-x-101 w-full h-full"
+    //   />
 
+    // </section>
+    <section className=" w-full">
+      <img src="/images/banner.jpg" alt="Christmas Dinner" className="lg:object-fill object-cover  lg:scale-x-101 w-full h-full" />
     </section>
   )
 }
