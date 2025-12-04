@@ -1,13 +1,14 @@
-import Footer from "./componets/Footer";
+import Header from "./componets/Header";
 import Banner from "./componets/Banner";
 import Link from "next/link";
+import Brimbank from "./componets/Brimbank";
 
 export default function Home() {
   return (
     <main className="min-h-screen w-full overflow-x-hidden  bg-primary-blue flex flex-col lg:mt-5 pb-10 items-center justify-start">
 
       <Banner />
-      <Footer />
+      <Header />
 
       <section className="max-w-3xl max-lg:px-6  max-md:mt-10 text-white text-center">
 
@@ -33,6 +34,8 @@ export default function Home() {
         <Link href="/registration" className="2xl:mt-10 mt-7 px-8 2xl:py-2 inline-block cursor-pointer py-1.5 bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
           PLAY GAME
         </Link>
+
+        <Brimbank/>
 
       </section>
 

@@ -1,12 +1,13 @@
 "use client";
 import { use, useEffect, useRef, useState } from "react";
 import FlipCard from "../componets/FlipCard";
-import Footer from "../componets/Footer";
+import Header from "../componets/Header";
 import { useRouter } from "next/navigation";
 import { usePlayerStore } from "../store/usePlayerStore";
 import PageLoader from "../componets/PageLoader";
 import { handleGiftCards } from "../actions/rewards";
 import { toast } from "sonner";
+import Brimbank from "../componets/Brimbank";
 
 export default function PlayGame() {
 
@@ -209,9 +210,9 @@ export default function PlayGame() {
 
     return (
         <div className="bg-primary-blue flex flex-col items-center min-h-screen">
-            <Footer />
+            <Header />
 
-            <main className="  flex flex-col items-center gap-1 lg:gap-6 lg:-mt-10  max-lg:mb-10  lg:min-h-[90vh] min-h-[70vh] w-full">
+            <main className="  flex flex-col items-center gap-1 lg:gap-6 lg:-mt-10  max-lg:mb-0  lg:min-h-[90vh] min-h-[70vh] w-full">
                 <h1 className={`2xl:text-4xl text-2xl lg:text-3xl transition-all duration-500 mt-5 font-bold ${matchingState === 'match' ? 'text-green-500' : matchingState === 'no-match' ? 'text-red-500' : 'text-white'}`} >{!hasViewingTimeEnded ? ` Start memorising now!` :
                     matchingState === 'match' ? `ITS A MATCH!` : matchingState === 'no-match' ? `NOT A MATCH!` : `PICK CARDS NOW `}</h1>
                 <h2 className="text-white lg:mt-3 text-xl lg:text-3xl 2xl:text-4xl font-bold">
@@ -229,6 +230,7 @@ export default function PlayGame() {
                     ))}
                 </div>
             </main>
+            <Brimbank/>
             {isLoading && <PageLoader />}
         </div>
     );
