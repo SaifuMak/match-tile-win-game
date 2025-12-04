@@ -39,7 +39,7 @@ export default function ParticipantsTable({ data }) {
                             <td className={tableRowStyle}>{p.email}</td>
                             <td className={tableRowStyle}>{p.phone}</td>
                             <td className={tableRowStyle}>{p.city}</td>
-                            <td className={tableRowStyle}>{p.reward ? `$${p.reward}` : "N/A"}</td>
+                            <td className={tableRowStyle}>{p.reward ? `$${p.reward}` : "Consolation"}</td>
                             <td className={tableRowStyle}>
                                 <span
                                     className={`px-2 py-1 rounded text-xs font-semibold ${p.has_won ? "bg-green-200 text-green-800" : "bg-red-200 text-red-700"
