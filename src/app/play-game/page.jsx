@@ -188,7 +188,7 @@ export default function PlayGame() {
             setTime(prev => {
 
                 //  this is the total play time that includes the viewing time
-                if (playTimeRef.current === 41) {
+                if (playTimeRef.current === 51) {
                     handleGameOver();
 
                 }
@@ -196,7 +196,7 @@ export default function PlayGame() {
                     // when timer finishes → flip all back + restart timer
                     cardRefs.current.forEach((card) => card.hide());
                     sethasViewingTimeEnded(true);
-                    return 30;
+                    return 40;
                 }
                 return prev - 1;
             });

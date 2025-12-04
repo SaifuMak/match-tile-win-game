@@ -8,7 +8,7 @@ function Banner() {
         src="/images/banner.jpg"
         alt="Christmas Dinner"
         fill
-        className="object-fill  lg:scale-x-101 w-full h-full"
+        className="lg:object-fill object-cover  lg:scale-x-101 w-full h-full"
       />
 
     </section>

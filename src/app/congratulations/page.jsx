@@ -37,10 +37,10 @@ export default function Congratulations() {
     return (
         <div className=" flex flex-col bg-primary-blue min-h-screen  ">
 
-            <div className=" flex justify-center ">
+            <div className=" flex justify-center  ">
                 <Footer />
             </div>
-            <div className="  text-center min-h-[80vh] flex flex-col items-center justify-center px-5">
+            <div className="  text-center min-h-[80vh] flex flex-col items-center lg:justify-center max-lg:mt-12 px-5">
 
                 {localWinStatus && localRewards ? (
                     <>
