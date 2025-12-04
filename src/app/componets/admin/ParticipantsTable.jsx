@@ -9,7 +9,7 @@ export default function ParticipantsTable({ data }) {
         );
     }
 
-    const  tableRowStyle = "py-5 px-3 ";
+    const  tableRowStyle = "py-5 px-3  text-[16px]";
     const tabelHeaderStyle = "px-4 py-5 font-semibold text-lg text-gray-700 ";
 
 
@@ -23,8 +23,11 @@ export default function ParticipantsTable({ data }) {
                         <th className={tabelHeaderStyle}>Email</th>
                         <th className={tabelHeaderStyle}>Phone</th>
                         <th className={tabelHeaderStyle}>City</th>
+
                         <th className={tabelHeaderStyle}>Reward</th>
                         <th className={tabelHeaderStyle}>Won</th>
+                        <th className={tabelHeaderStyle}>Voucher</th>
+
                         <th className={tabelHeaderStyle}>Played On</th>
                     </tr>
                 </thead>
@@ -44,6 +47,9 @@ export default function ParticipantsTable({ data }) {
                                 >
                                     {p.has_won ? "Yes" : "No"}
                                 </span>
+                            </td>
+                            <td className={tableRowStyle}>
+                                {p.invoice_public_url ? <a href={p.invoice_public_url} className="text-white ml-3 text-sm bg-slate-500 px-2 py-0.5 rounded-sm " target="_blank" rel="noopener noreferrer">View</a> : "N/A"}
                             </td>
                             <td className={tableRowStyle}>{p.played_at}</td>
                         </tr>
