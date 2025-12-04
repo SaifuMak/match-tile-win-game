@@ -11,6 +11,7 @@ import Pagination from "@/app/componets/Pagination";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import LoaderIcon from "@/app/componets/LoaderIcon";
+import SearchComponent from "@/app/componets/admin/SearchComponent";
 
 export default function WinnersPage() {
 
@@ -44,6 +45,10 @@ export default function WinnersPage() {
         }
     };
 
+      const onSearch = (query) => {
+        fetchWinners(1, query)
+    }
+
     useEffect(() => {
         fetchWinners();
     }, []);
@@ -62,7 +67,14 @@ export default function WinnersPage() {
                 {/* main content */}
 
                 <div className=" bg-slate-50 mx-5 p-10 rounded-2xl w-full h-full min-h-[97vh] ">
-                    <h1 className=" text-3xl font-bold">Winners</h1>
+
+                    <div className=" flex justify-between ">
+                         <h1 className=" text-3xl font-bold">Winners</h1>
+
+                        <div className="flex-1 max-w-2xl ml-auto">
+                            <SearchComponent onSearch={onSearch} query={query} setQuery={setQuery} />
+                        </div>
+                    </div>
 
                     {isLoading ? (
                         // Show Loader

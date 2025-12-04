@@ -3,7 +3,7 @@
 export default function ParticipantsTable({ data }) {
     if (!data || data?.results.length === 0) {
         return (
-            <div className="mt-8 p-6 text-center text-gray-500 text-lg bg-white rounded-xl shadow">
+            <div className="p-6 mt-32 text-center text-gray-500 text-lg  rounded-xl ">
                 No participants found
             </div>
         );

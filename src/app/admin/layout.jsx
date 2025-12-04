@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import PageLoader from "../componets/PageLoader";
 import AXIOS_INSTANCE from "../../../lib/axios";
+import PageLoader from "../componets/admin/PageLoader";
 
 
 export default function AdminLayout({ children }) {

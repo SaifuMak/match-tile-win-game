@@ -8,7 +8,7 @@ import ParticipantsPagination from "@/app/componets/admin/ParticipantsPagination
 import { getPageNumber, getTotalPagesCount } from "@/app/utils/PaginationHelpers";
 import Pagination from "@/app/componets/Pagination";
 import LoaderIcon from "@/app/componets/LoaderIcon";
-
+import SearchComponent from "@/app/componets/admin/SearchComponent";
 
 
 import { useState, useEffect } from "react";
@@ -49,6 +49,11 @@ export default function ParticipantsPage() {
         }
     };
 
+    const onSearch = (query) => {
+        fetchParticipants(1, query)
+    }
+
+
     useEffect(() => {
         fetchParticipants();
     }, []);
@@ -67,12 +72,18 @@ export default function ParticipantsPage() {
                 {/* main content */}
 
                 <div className="bg-slate-50 relative mx-5 p-10 rounded-2xl w-full min-h-[97vh]">
-                    <h1 className="text-3xl font-bold">Participants</h1>
+                    <div className=" flex justify-between ">
+                            <h1 className="text-3xl font-bold">Participants</h1>
+
+                        <div className="flex-1 max-w-2xl ml-auto">
+                            <SearchComponent onSearch={onSearch} query={query} setQuery={setQuery} />
+                        </div>
+                    </div>
 
                     {isLoading ? (
                         // Show Loader
                         <div className="flex justify-center items-center min-h-[50vh]">
-                            <LoaderIcon className="text-2xl text-primary-blue animate-spin"/>
+                            <LoaderIcon className="text-2xl text-primary-blue animate-spin" />
                         </div>
                     ) : participants.success ? (
                         <>
