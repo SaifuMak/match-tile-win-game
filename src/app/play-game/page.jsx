@@ -55,12 +55,13 @@ export default function PlayGame() {
     const playTimeRef = useRef(0);
     const rewardTriggered = useRef(false);
 
+    
     const [matchingState, setMatchingState] = useState(null)
 
     useEffect(() => {
-        toast.dismiss();
         // check if playerId exists
         if (!playerId) {
+            toast.dismiss();
 
             toast.success("Please register to play the game!");
             router.replace('/registration');

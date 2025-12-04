@@ -92,14 +92,14 @@ export default function RegistrationForm() {
                 }} />
 
                 <label className={labelClass}>
-                    Upload your Invoice <span className="text-xs  font-normal">(PDF/DOC/DOCX)</span>
+                    Upload your Invoice 
                 </label>
                 <div className="flex items-center w-full  bg-white p-3 xl:p-2 xl:mb-5 mb-2  ">
                     <input
                         type="file"
                         ref={fileInputRef}
                         id="invoice-upload"
-                        accept=".pdf,.doc,.docx"
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                         onChange={(e) => setSelectedFile(e.target.files[0])}
                         className="hidden"
                     />
