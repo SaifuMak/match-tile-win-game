@@ -68,7 +68,7 @@ export default function RegistrationForm() {
 
     return (
         <div className="flex justify-center  items-center max-lg:mb-10 ">
-            <form className="lg:w-[600px] w-full  text-center mt-12" onSubmit={handleSubmit}>
+            <form className="lg:w-[500px]  w-full   text-center mt-12" onSubmit={handleSubmit}>
 
                 <label className={labelClass}>Full Name:</label>
                 <input type="text" name="fullName" className={inputClass} required />
@@ -105,17 +105,18 @@ export default function RegistrationForm() {
                     />
                     <label
                         htmlFor="invoice-upload"
-                        className="px-3 py-0.5  bg-primary-blue text-white rounded cursor-pointer font-medium"
+                        className="px-3 lg:py-1 py-0.5 max-lg:text-sm text-nowrap  bg-primary-blue text-white rounded cursor-pointer font-medium"
                     >
                         Choose File
                     </label>
-                    <p className="ml-3 text-primary-blue   ">
+                    <p className="ml-3 text-primary-blue text-sm max-lg:text-xs max-w-[190px] truncate">
                         {selectedFile ? selectedFile.name : "No file chosen"}
                     </p>
+
                 </div>
 
 
-                <button type="submit" className=" mt-16 xl:w-[190px] flex-center mx-auto w-[170px] xl:h-[50px] h-[40px] cursor-pointer  bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
+                <button type="submit" className=" mt-10 lg:mt-12 xl:w-[190px] flex-center mx-auto w-[170px] xl:h-[45px] h-[40px] cursor-pointer  bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
                     {isLoading ? <LoaderIcon /> : "START"}
                 </button>
             </form>

@@ -4,10 +4,12 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full overflow-x-hidden  bg-primary-blue flex flex-col items-center justify-start">
+    <main className="min-h-screen w-full overflow-x-hidden  bg-primary-blue flex flex-col lg:mt-5 pb-10 items-center justify-start">
 
     <Banner />
-      <section className="max-w-3xl max-lg:px-6  text-white mt-16 text-center">
+      <Footer />
+
+      <section className="max-w-3xl max-lg:px-6  max-md:mt-10 text-white text-center">
 
         <h1 className="2xl:text-[40px] lg:text-3xl text-2xl font-bold">PLAY & WIN GIFT CARDS</h1>
 
@@ -17,13 +19,13 @@ export default function Home() {
 
           <ul className="list-disc pl-6  text-white lg:font-medium leading-6">
             <li>You will see 12 cards on the screen (6 cards shown twice).</li>
-            <li>All cards stay face-up for 15 seconds to help you memorize their positions.</li>
-            <li>After 15 seconds, the cards flip face-down and the 60-second game timer starts.</li>
+            <li>All cards stay face-up for 10 seconds to help you memorize their positions.</li>
+            <li>After 10 seconds, the cards flip face-down and the 30-second game timer starts.</li>
             <li>Tap a card to reveal it, then tap another card.</li>
             <li>If the two cards match, they disappear.</li>
             <li>If they don’t match, they flip back down.</li>
             <li>Keep matching pairs until all 6 pairs are cleared.</li>
-            <li>If you finish matching all cards within 60 seconds, you win the game.</li>
+            <li>If you finish matching all cards within 30  seconds, you win the game.</li>
           </ul>
 
         </div>
@@ -33,7 +35,6 @@ export default function Home() {
         </Link>
 
       </section>
-      <Footer />
 
     </main>
   );

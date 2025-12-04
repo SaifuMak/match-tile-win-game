@@ -44,7 +44,7 @@ export default function PlayGame() {
     };
 
     const cardRefs = useRef([]);
-    const [time, setTime] = useState(16);
+    const [time, setTime] = useState(11);
     const [hasViewingTimeEnded, sethasViewingTimeEnded] = useState(false);
 
     const [selectedCards, setSelectedCards] = useState([]);
@@ -58,9 +58,9 @@ export default function PlayGame() {
     const [matchingState, setMatchingState] = useState(null)
 
     useEffect(() => {
+        toast.dismiss();
         // check if playerId exists
         if (!playerId) {
-            console.log('Please register to play the game!');
 
             toast.success("Please register to play the game!");
             router.replace('/registration');
@@ -73,15 +73,14 @@ export default function PlayGame() {
     }, [playerId]);
 
 
-
     const handleReward = async (has_won = false) => {
         if (rewardTriggered.current) return;
-        rewardTriggered.current = true;
         setIsLoading(true);
+        rewardTriggered.current = true;
 
         const data = {
             id: playerId,
-            time: playTimeRef.current - 5,
+            time: playTimeRef.current - 11, // exclude viewing time 
             points: points,
             has_won: has_won,
         }
@@ -188,7 +187,7 @@ export default function PlayGame() {
             setTime(prev => {
 
                 //  this is the total play time that includes the viewing time
-                if (playTimeRef.current === 76) {
+                if (playTimeRef.current === 41) {
                     handleGameOver();
 
                 }
@@ -196,7 +195,7 @@ export default function PlayGame() {
                     // when timer finishes → flip all back + restart timer
                     cardRefs.current.forEach((card) => card.hide());
                     sethasViewingTimeEnded(true);
-                    return 60;
+                    return 30;
                 }
                 return prev - 1;
             });
@@ -209,8 +208,10 @@ export default function PlayGame() {
 
     return (
         <div className="bg-primary-blue flex flex-col items-center min-h-screen">
-            <main className="  flex flex-col items-center gap-1 lg:gap-6 py-4 lg:py-8 lg:min-h-[90vh] min-h-[70vh] w-full">
-                <h1 className={`2xl:text-4xl text-2xl lg:text-3xl transition-all duration-500 mt-5 font-bold ${matchingState === 'match' ? 'text-green-500' : matchingState === 'no-match' ? 'text-red-500' : 'text-white'}`} >{!hasViewingTimeEnded ? ` Start memorizing now!` :
+            <Footer />
+
+            <main className="  flex flex-col items-center gap-1 lg:gap-6 lg:-mt-10  max-lg:mb-10  lg:min-h-[90vh] min-h-[70vh] w-full">
+                <h1 className={`2xl:text-4xl text-2xl lg:text-3xl transition-all duration-500 mt-5 font-bold ${matchingState === 'match' ? 'text-green-500' : matchingState === 'no-match' ? 'text-red-500' : 'text-white'}`} >{!hasViewingTimeEnded ? ` Start memorising now!` :
                     matchingState === 'match' ? `ITS A MATCH!` : matchingState === 'no-match' ? `NOT A MATCH!` : `PICK CARDS NOW `}</h1>
                 <h2 className="text-white lg:mt-3 text-xl lg:text-3xl 2xl:text-4xl font-bold">
                     {hasViewingTimeEnded ? `You have ${time} seconds...` : `${time} seconds remaining...`}
@@ -227,7 +228,6 @@ export default function PlayGame() {
                     ))}
                 </div>
             </main>
-            <Footer />
             {isLoading && <PageLoader />}
         </div>
     );
