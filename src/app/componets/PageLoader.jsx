@@ -3,8 +3,8 @@ import LoaderIcon from './LoaderIcon';
 
 function PageLoader() {
   return (
-    <div className=" fixed inset-0 w-full h-full  bg-primary-blue flex items-center justify-center">
-      <LoaderIcon className = 'text-3xl text-white animate-spin' />
+    <div className=" fixed inset-0 w-full h-full  flex items-center justify-center">
+      <LoaderIcon className = 'text-3xl  text-primary-blue animate-spin' />
     </div>
   )
 }

@@ -1,10 +1,57 @@
+
+"use client";
 import Navbar from "@/app/componets/admin/Navbar";
 import Sidebar from "@/app/componets/admin/Sidebar";
+import { getWinners } from "@/app/actions/admin";
+import ParticipantsTable from "@/app/componets/admin/ParticipantsTable";
+import ParticipantsPagination from "@/app/componets/admin/ParticipantsPagination";
+import { getPageNumber, getTotalPagesCount } from "@/app/utils/PaginationHelpers";
+import Pagination from "@/app/componets/Pagination";
+
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import LoaderIcon from "@/app/componets/LoaderIcon";
 
 export default function WinnersPage() {
+
+    const [participants, setParticipants] = useState([]);
+    const [query, setQuery] = useState("");
+
+    const [nextPage, setNextPage] = useState(null); // Next page URL
+    const [prevPage, setPrevPage] = useState(null); // Previous page URL
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(null)
+
+    const [isLoading, setIsLoading] = useState(true)
+
+
+    const fetchWinners = async (page = 1, query = "") => {
+        const response = await getWinners(page, query);
+        if (response.success) {
+
+            const nextpage = getPageNumber(response.data.next)
+            const previous = getPageNumber(response.data.previous)
+            setNextPage(nextpage)
+            setPrevPage(previous)
+            setCurrentPage(page)
+            const totalPages = getTotalPagesCount(response.data.count, 5)
+            setTotalPages(totalPages)
+            setParticipants(response);
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
+            toast.error("Failed to fetch winners. Please try again.");
+        }
+    };
+
+    useEffect(() => {
+        fetchWinners();
+    }, []);
+
+
     return (
 
-        <div className="h-screen w-full ">
+        <div className="min-h-screen w-full ">
 
             <Navbar />
 
@@ -14,15 +61,28 @@ export default function WinnersPage() {
                 <Sidebar />
                 {/* main content */}
 
-                <div className=" bg-slate-50 mx-5 p-10 rounded-2xl w-full h-full ">
+                <div className=" bg-slate-50 mx-5 p-10 rounded-2xl w-full h-full min-h-[97vh] ">
                     <h1 className=" text-3xl font-bold">Winners</h1>
+                    {participants.success ? (
+                        <>
+                            <ParticipantsTable data={participants.data} />
+                            <div className="">
+                                {participants.data?.results.length > 0 && (<Pagination
+                                    prevPage={prevPage}
+                                    nextPage={nextPage}
+                                    function_to_call={fetchWinners}
+                                    currentPage={currentPage}
+                                    TotalPages={totalPages}
+                                    queryParameter={query}
+                                    buttonColor='bg-slate-500'
+                                />)}
+                            </div>
+                        </>
+                    ) : (
 
-                    <div className=" w-full h-full flex-center">
-                        <p className=" text-2xl "> Welcome to the Winners Page</p>
-                    </div>
+                        !isLoading && <p className=" text-red-500 mt-5 ">Failed to load participants</p>
+                    )}
                 </div>
-
-
             </div>
         </div>
 

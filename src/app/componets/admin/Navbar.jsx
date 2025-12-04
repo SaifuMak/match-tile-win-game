@@ -11,13 +11,13 @@ import { FaPowerOff } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 
 const Navbar = () => {
+
     const pathname = usePathname()
     const router = useRouter()
     // const [itemName, setItemName] = useState('');
     // const [dropdownOpen, setDropdownOpen] = useState(false);
     // const [isChangePasswordModal, setIsChangePasswordModal] = useState(false)
     const [loading, setloading] = useState(false)
-
 
 
     // useEffect(() => {
