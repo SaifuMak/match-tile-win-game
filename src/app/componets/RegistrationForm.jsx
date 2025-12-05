@@ -92,7 +92,7 @@ export default function RegistrationForm() {
                 }} />
 
                 <label className={labelClass}>
-                    Upload your Invoice 
+                    Upload Your Receipt 
                 </label>
                 <div className="flex items-center w-full  bg-white p-3 xl:p-2 xl:mb-5 mb-2  ">
                     <input

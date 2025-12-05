@@ -19,7 +19,7 @@ export default function Home() {
 
           <ul className="list-disc pl-6  text-white lg:font-medium leading-6">
             <li>You will see 12 cards on the screen (6 cards shown twice).</li>
-            <li>All cards stay face-up for 10 seconds to help you memorize their positions.</li>
+            <li>All cards stay face-up for 10 seconds to help you memorise their positions.</li>
             <li>After 10 seconds, the cards flip face-down and the 30-second game timer starts.</li>
             <li>Tap a card to reveal it, then tap another card.</li>
             <li>If the two cards match, they disappear.</li>

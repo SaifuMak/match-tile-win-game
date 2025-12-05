@@ -55,7 +55,9 @@ export default function Congratulations() {
                         <>
                             <h1 className="text-[#F9F523] text-4xl xl:text-5xl 2xl:text-6xl font-bold">TIME OVER!</h1>
                             <p className="2xl:text-5xl text-2xl lg:text-3xl text-white font-bold mt-5 lg:mt-7 2xl:mt-10 ">But you have won a prize.</p>
-                            <p className=" 2xl:text-[30px] lg:max-w-7/12 lg:text-3xl text-lg text-white  lg:font-semibold mt-4">Please collect at Customer Service Desk.</p>
+                            {/* <p className=" 2xl:text-[30px] lg:max-w-7/12 lg:text-3xl text-lg text-white  lg:font-semibold mt-4">Please collect at Customer Service Desk.</p> */}
+                        <p className="2xl:text-[36px] lg:max-w-7/12 lg:text-3xl text-lg text-white  lg:font-semibold mt-7">Collect your prize from our Kiosk located opposite Target, between 11am–2pm daily.</p>
+
                         </>
                     ) : (
                         <>
