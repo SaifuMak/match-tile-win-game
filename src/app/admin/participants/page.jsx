@@ -14,10 +14,12 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import { exportToExcel } from "@/app/utils/ExportToExcel";
+import { updatePrizeClaimStatus } from "@/app/actions/admin";
 
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import VerifyModal from "@/app/componets/admin/VerifyModal";
 
 export default function ParticipantsPage() {
     dayjs.extend(utc);
@@ -32,6 +34,37 @@ export default function ParticipantsPage() {
     const [totalPages, setTotalPages] = useState(null)
 
     const [isLoading, setIsLoading] = useState(true)
+
+    const [isRequesting, setIsRequesting] = useState(false)
+
+    const [giftPrizeStatus, setGiftPrizeStatus] = useState({ participant: null, status: false })
+    const [giftClaimModal, setGiftClaimModal] = useState(false)
+
+    const handleGiftPrizeStatusChange = (participant, status) => {
+        setGiftPrizeStatus({ participant, status });
+        setGiftClaimModal(true);
+    }
+
+    const handleUnclaimPrize = () => {
+        setGiftClaimModal(false);
+        setGiftPrizeStatus({ participant: null, status: false });
+    }
+
+    const handleVerifyPrizeClaim = async (participant) => {
+        // Call API to verify prize claim
+        setIsRequesting(true);
+        const response = await updatePrizeClaimStatus(participant.id);
+        if (response.success) {
+            toast.success(response.data.message || "Prize claim status updated successfully.");
+            handleUnclaimPrize();
+            fetchParticipants(currentPage, query)
+            setIsRequesting(false);
+        }
+        else {
+            toast.error("Failed to verify prize claim. Please try again.");
+            setIsRequesting(false);
+        }
+    }
 
     const fetchParticipants = async (page = 1, query = "") => {
         setIsLoading(true);
@@ -126,7 +159,7 @@ export default function ParticipantsPage() {
                         </div>
                     ) : participants.success ? (
                         <>
-                            <ParticipantsTable data={participants.data} />
+                            <ParticipantsTable data={participants.data} handleGiftPrizeStatusChange={handleGiftPrizeStatusChange} />
 
                             {participants.data?.results.length > 0 && (
                                 <Pagination
@@ -144,6 +177,14 @@ export default function ParticipantsPage() {
                         <p className="text-red-500 mt-5">Failed to load participants</p>
                     )}
                 </div>
+                <VerifyModal
+                    open={giftClaimModal}
+                    onClose={() => setGiftClaimModal(false)}
+                    participant={giftPrizeStatus.participant}
+                    onVerify={handleVerifyPrizeClaim}
+                    onUnclaim={handleUnclaimPrize}
+                    isRequesting={isRequesting}
+                />
 
             </div>
         </div>
