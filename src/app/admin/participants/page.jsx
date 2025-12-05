@@ -77,7 +77,7 @@ export default function ParticipantsPage() {
             setNextPage(nextpage)
             setPrevPage(previous)
             setCurrentPage(page)
-            const totalPages = getTotalPagesCount(response.data.count, 5)
+            const totalPages = getTotalPagesCount(response.data.count, 50)
             setTotalPages(totalPages)
             setParticipants(response);
             setIsLoading(false);

@@ -4,14 +4,14 @@ import { FiCheck } from "react-icons/fi";
 export default function ParticipantsTable({ data, handleGiftPrizeStatusChange }) {
     if (!data || data?.results.length === 0) {
         return (
-            <div className="p-6 mt-32 text-center text-gray-500 text-lg  rounded-xl ">
+            <div className="p-6 mt-32 text-center text-gray-500 text-lg   rounded-xl ">
                 No participants found
             </div>
         );
     }
 
-    const tableRowStyle = "py-5 px-3  text-[16px]";
-    const tabelHeaderStyle = "px-4 py-5 font-semibold text-lg text-gray-700 ";
+    const tableRowStyle = "py-5 px-3 text-sm  2xl:text-[16px]";
+    const tabelHeaderStyle = "px-4 py-5 font-semibold 2xl:text-lg text-gray-700 ";
 
 
     return (
@@ -60,7 +60,7 @@ export default function ParticipantsTable({ data, handleGiftPrizeStatusChange })
                             <td className={tableRowStyle}>{p.played_at}</td>
                             <td onClick={() => handleGiftPrizeStatusChange(p, !p.is_prize_claimed)} className={tableRowStyle}>
                                 <span
-                                    className={` mx-auto size-6 rounded-full  flex items-center cursor-pointer justify-center ${p.is_prize_claimed ? "bg-green-100 text-green-800" : " border border-slate-400 hover:bg-gray-100"
+                                    className={` mx-auto size-5 2xl:size-6 rounded-full  flex items-center cursor-pointer justify-center ${p.is_prize_claimed ? "bg-green-100 text-green-800" : " border border-slate-400 hover:bg-gray-100"
                                         }`}
                                 >
                                     {p.is_prize_claimed && <FiCheck size={16} />}

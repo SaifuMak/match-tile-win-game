@@ -75,6 +75,7 @@ export default function GiftsPage() {
                         </div>
                     </div>
 
+
                     <div className=" w-full  flex flex-col mt-16  ">
                         <h2 className=" text-2xl font-semibold mb-5">Consolation Prizes</h2>
                         <div className=" max-w-[300px] mt-2">
