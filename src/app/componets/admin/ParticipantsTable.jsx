@@ -67,10 +67,11 @@ export default function ParticipantsTable({ data, handleGiftPrizeStatusChange,ha
                                 </span>
 
                             </td>
-                            <td className={tableRowStyle}>
+
+                          {!p.is_prize_claimed &&  <td className={tableRowStyle}>
                                 <span onClick={() => handleDeleteParticipant(p)} className=" bg-red-100 mx-auto hover:bg-red-200 text-red-800 px-2 py-1 text-sm rounded cursor-pointer">Delete</span>
                                 {/* Actions column content can be added here */}
-                            </td>
+                            </td>}
                         </tr>
                     ))}
                 </tbody>
