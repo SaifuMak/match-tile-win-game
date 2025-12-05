@@ -10,7 +10,7 @@ export default function Home() {
       <Banner />
       <Header />
 
-      <section className="max-w-3xl max-lg:px-6  max-md:mt-10 text-white text-center">
+      <section className="max-w-3xl max-lg:px-6  max-lg:mt-10 text-white text-center">
 
         <h1 className="2xl:text-[40px] lg:text-3xl text-2xl font-bold">PLAY & WIN GIFT CARDS</h1>
 
@@ -35,7 +35,7 @@ export default function Home() {
           PLAY GAME
         </Link>
 
-        <Brimbank/>
+        <Brimbank />
 
       </section>
 

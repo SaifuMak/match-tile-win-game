@@ -2,7 +2,7 @@ import React from 'react'
 
 function Header() {
     return (
-        <div className=" flex max-sm:flex-col max-sm:mt-10 mt-5  max-sm:space-y-4 justify-center  sm:justify-between w-10/12  items-center">
+        <div className=" flex max-sm:flex-col max-sm:mt-10 mt-5  max-sm:space-y-4 justify-center  lg:justify-between w-10/12  items-center">
 
             {/* Left Image - BE UNITED AT CHRISTMAS */}
             <img
