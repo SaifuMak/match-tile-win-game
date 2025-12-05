@@ -65,7 +65,6 @@ export default function ParticipantsTable({ data, handleGiftPrizeStatusChange,ha
                                 >
                                     {p.is_prize_claimed && <FiCheck size={16} />}
                                 </span>
-
                             </td>
 
                           {!p.is_prize_claimed &&  <td className={tableRowStyle}>
