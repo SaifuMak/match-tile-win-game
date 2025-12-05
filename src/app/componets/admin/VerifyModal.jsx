@@ -29,7 +29,7 @@ export default function VerifyModal({ open, onClose, participant, onVerify, onUn
           <button
             onClick={onClose}
             disabled={isRequesting}
-            className="px-3 py-1 rounded bg-gray-200 hover:bg-gray-300"
+            className="px-3 py-1 rounded cursor-pointer bg-gray-200 hover:bg-gray-300"
           >
             Cancel
           </button>
@@ -39,7 +39,7 @@ export default function VerifyModal({ open, onClose, participant, onVerify, onUn
               onVerify(participant);
             }}
             disabled={isRequesting}
-            className={`px-3 py-1 rounded ${participant.is_prize_claimed ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"} text-white`}
+            className={`px-3 py-1 rounded cursor-pointer ${participant.is_prize_claimed ? "bg-red-500 hover:bg-red-600" : "bg-green-500 hover:bg-green-600"} text-white`}
           >
            {isRequesting ? "Processing..." : "Confirm"}
           </button>

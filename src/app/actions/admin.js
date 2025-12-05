@@ -52,3 +52,14 @@ export const updatePrizeClaimStatus = async (participantId) => {
         return { success: false, error: error.response ? error.response.data.error : 'Network Error! please try again.' };
     }
 }
+
+
+export const getAllRewards = async () => {
+    try {
+        const response = await AXIOS_INSTANCE.get(`/api/rewards-details/`);  // Adjust endpoint as needed
+        return { success: true, data: response.data };
+    } catch (error) {
+        console.error('Participants fetching error:', error);
+        return { success: false, error: error.response ? error.response.data.error : 'Network Error! please try again.' };
+    }
+}

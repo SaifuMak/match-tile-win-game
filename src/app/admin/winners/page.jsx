@@ -125,6 +125,7 @@ export default function WinnersPage() {
         setIsLoading(false);
     };
 
+
     useEffect(() => {
         fetchWinners();
     }, []);
@@ -140,8 +141,8 @@ export default function WinnersPage() {
 
                 {/* sidebar */}
                 <Sidebar />
-                {/* main content */}
 
+                {/* main content */}
                 <div className=" bg-slate-50 mx-5 p-10 rounded-2xl w-full h-full min-h-[97vh] ">
 
                     <div className=" flex justify-between items-center ">
@@ -162,7 +163,7 @@ export default function WinnersPage() {
                         </div>
                     ) : participants.success ? (
                         <>
-                            <ParticipantsTable data={participants.data}  handleGiftPrizeStatusChange={handleGiftPrizeStatusChange} />
+                            <ParticipantsTable data={participants.data} handleGiftPrizeStatusChange={handleGiftPrizeStatusChange} />
 
                             {participants.data?.results.length > 0 && (
                                 <Pagination
