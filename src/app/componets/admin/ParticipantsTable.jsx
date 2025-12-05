@@ -1,7 +1,7 @@
 "use client";
 import { FiCheck } from "react-icons/fi";
 
-export default function ParticipantsTable({ data, handleGiftPrizeStatusChange }) {
+export default function ParticipantsTable({ data, handleGiftPrizeStatusChange,handleDeleteParticipant }) {
     if (!data || data?.results.length === 0) {
         return (
             <div className="p-6 mt-32 text-center text-gray-500 text-lg   rounded-xl ">
@@ -68,7 +68,7 @@ export default function ParticipantsTable({ data, handleGiftPrizeStatusChange })
 
                             </td>
                             <td className={tableRowStyle}>
-                                <span className=" bg-red-100 mx-auto hover:bg-red-200 text-red-800 px-2 py-1 text-sm rounded cursor-pointer">Delete</span>
+                                <span onClick={() => handleDeleteParticipant(p)} className=" bg-red-100 mx-auto hover:bg-red-200 text-red-800 px-2 py-1 text-sm rounded cursor-pointer">Delete</span>
                                 {/* Actions column content can be added here */}
                             </td>
                         </tr>

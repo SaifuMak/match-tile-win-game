@@ -16,10 +16,11 @@ import timezone from "dayjs/plugin/timezone";
 import { exportToExcel } from "@/app/utils/ExportToExcel";
 import { updatePrizeClaimStatus } from "@/app/actions/admin";
 
-
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import VerifyModal from "@/app/componets/admin/VerifyModal";
+import DeleteUserModal from "@/app/componets/admin/DeleteModal";
+import {deleteParticipantById} from "@/app/actions/admin";
 
 export default function ParticipantsPage() {
     dayjs.extend(utc);
@@ -39,6 +40,9 @@ export default function ParticipantsPage() {
 
     const [giftPrizeStatus, setGiftPrizeStatus] = useState({ participant: null, status: false })
     const [giftClaimModal, setGiftClaimModal] = useState(false)
+
+    const [deleteParticipant, setDeleteParticipant] = useState(null)
+    const [deleteModal, setDeleteModal] = useState(false);
 
     const handleGiftPrizeStatusChange = (participant, status) => {
         setGiftPrizeStatus({ participant, status });
@@ -65,6 +69,31 @@ export default function ParticipantsPage() {
             setIsRequesting(false);
         }
     }
+
+    const handleDeleteParticipant = (participant) => {
+        setDeleteParticipant(participant);
+        setDeleteModal(true);
+    };
+    const handleCloseDeleteModal = () => {
+        setDeleteModal(false);
+        setDeleteParticipant(null);
+    };
+
+
+    const handleConfirmDeleteParticipant = async () => {
+        // Call API to delete participant
+        setIsRequesting(true);
+        const response = await deleteParticipantById(deleteParticipant.id);
+        if (response.success) {
+            toast.success(response.data.message || "Participant deleted successfully.");
+            handleCloseDeleteModal();
+            fetchParticipants(currentPage, query);
+            setIsRequesting(false);
+        } else {
+            toast.error("Failed to delete participant. Please try again.");
+            setIsRequesting(false);
+        }
+    };
 
     const fetchParticipants = async (page = 1, query = "") => {
         setIsLoading(true);
@@ -157,9 +186,13 @@ export default function ParticipantsPage() {
                         <div className="flex justify-center items-center min-h-[50vh]">
                             <LoaderIcon className="text-2xl text-primary-blue animate-spin" />
                         </div>
+
                     ) : participants.success ? (
                         <>
-                            <ParticipantsTable data={participants.data} handleGiftPrizeStatusChange={handleGiftPrizeStatusChange} />
+                            <ParticipantsTable data={participants.data}
+                                handleGiftPrizeStatusChange={handleGiftPrizeStatusChange}
+                                handleDeleteParticipant={handleDeleteParticipant}
+                            />
 
                             {participants.data?.results.length > 0 && (
                                 <Pagination
@@ -183,6 +216,13 @@ export default function ParticipantsPage() {
                     participant={giftPrizeStatus.participant}
                     onVerify={handleVerifyPrizeClaim}
                     onUnclaim={handleUnclaimPrize}
+                    isRequesting={isRequesting}
+                />
+                <DeleteUserModal
+                    open={deleteModal}
+                    onClose={handleCloseDeleteModal}
+                    user={deleteParticipant}
+                    onDelete={handleConfirmDeleteParticipant}
                     isRequesting={isRequesting}
                 />
 

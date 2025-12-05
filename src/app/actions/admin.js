@@ -63,3 +63,13 @@ export const getAllRewards = async () => {
         return { success: false, error: error.response ? error.response.data.error : 'Network Error! please try again.' };
     }
 }
+
+ export const deleteParticipantById = async (participantId) => {
+    try {
+        const response = await AXIOS_INSTANCE.delete(`/api/delete-participant/${participantId}/`);  // Adjust endpoint as needed    
+        return { success: true, data: response.data };
+    } catch (error) {
+        console.error('Delete participant error:', error);
+        return { success: false, error: error.response ? error.response.data.error : 'Network Error! please try again.' };
+    }
+}
