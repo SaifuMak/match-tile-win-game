@@ -64,6 +64,16 @@ export const getAllRewards = async () => {
     }
 }
 
+export  const getPrizeDistributionStats = async () => {
+    try {
+        const response = await AXIOS_INSTANCE.get(`/api/prize-reset-snapshot/`);  // Adjust endpoint as needed
+        return { success: true, data: response.data };
+    } catch (error) {
+        console.error('Prize distribution stats fetching error:', error);
+        return { success: false, error: error.response ? error.response.data.error : 'Network Error! please try again.' };
+    }
+}
+
  export const deleteParticipantById = async (participantId) => {
     try {
         const response = await AXIOS_INSTANCE.delete(`/api/delete-participant/${participantId}/`);  // Adjust endpoint as needed    
