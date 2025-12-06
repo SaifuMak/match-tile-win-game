@@ -3,7 +3,7 @@ import Navbar from "@/app/componets/admin/Navbar";
 import Sidebar from "@/app/componets/admin/Sidebar";
 import { useEffect, useState } from "react";
 import { getAllRewards, getPrizeDistributionStats } from "@/app/actions/admin";
-import PrizeSnapshotCard from "@/app/componets/admin/PrizeSnapShot";
+// import PrizeSnapshotCard from "@/app/componets/admin/PrizeSnapShot";
 import LoaderIcon from "@/app/componets/LoaderIcon";
 
 export default function GiftsPage() {
@@ -15,7 +15,7 @@ export default function GiftsPage() {
 
 
     const fetchRewards = async () => {
-        
+
         const response = await getAllRewards();
         if (response.success) {
             const rewardsData = response.data;
@@ -27,21 +27,21 @@ export default function GiftsPage() {
         setIsLoading(false);
     }
 
-    const fetchPrizeDistributionStats = async () => {
-        // Fetch prize distribution stats from API
-        const response = await getPrizeDistributionStats();
-        if (response.success) {
-            // Handle the prize distribution stats data
-            setPrizeSnapshot(response.data);
-        } else {
-            console.error("Failed to fetch prize distribution stats:", response.error);
-        }
-        setIsPrizeHistoryFetching(false);
-    }
+    // const fetchPrizeDistributionStats = async () => {
+    //     // Fetch prize distribution stats from API
+    //     const response = await getPrizeDistributionStats();
+    //     if (response.success) {
+    //         // Handle the prize distribution stats data
+    //         setPrizeSnapshot(response.data);
+    //     } else {
+    //         console.error("Failed to fetch prize distribution stats:", response.error);
+    //     }
+    //     setIsPrizeHistoryFetching(false);
+    // }
 
     useEffect(() => {
         fetchRewards();
-        fetchPrizeDistributionStats();
+        // fetchPrizeDistributionStats();
     }, []);
 
     return (
@@ -139,7 +139,7 @@ export default function GiftsPage() {
 
                     </div>
 
-                    <div className=" w-full  flex flex-col mt-16  ">
+                    {/* <div className=" w-full  flex flex-col mt-16  ">
                         <h2 className=" text-2xl font-semibold mb-5">Weekly Reward History</h2>
                         {isPrizeHistoryFetching ? (
                             <LoaderIcon className=' text-xl text-primary-blue animate-spin' />
@@ -147,7 +147,7 @@ export default function GiftsPage() {
                             <p className=" text-gray-500">No prize history available.</p>
                         )}
                         <PrizeSnapshotCard data={prizeSnapshot} />
-                    </div>
+                    </div> */}
 
                 </div>
 
