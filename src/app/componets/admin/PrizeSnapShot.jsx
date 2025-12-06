@@ -1,5 +1,4 @@
 export default function PrizeSnapshotCard({ data }) {
-    console.log("Prize Snapshot Data:", data);
 
     return (
         <div className=" rounded-xl  w-full  grid grid-cols-3  space-x-10  ">
@@ -7,12 +6,10 @@ export default function PrizeSnapshotCard({ data }) {
             {data?.map((record) => (
                 <div key={record.id} className="my-4     bg-white p-6 rounded-xl  pb-4">
 
-                    {/* Show record timestamp */}
                     <h2 className="font-bold text-lg mb-3">
                        {record.recorded_at}
                     </h2>
 
-                    {/* Table Headers */}
                     <div className="w-full flex mb-2 font-semibold justify-between">
                         <p>Name</p>
                         <p>Claimed</p>
