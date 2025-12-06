@@ -14,34 +14,35 @@ export default function GiftsPage() {
     const [isLoading, setIsLoading] = useState(true);
 
 
-    const fetchRewards = async () => {
-
-        const response = await getAllRewards();
-        if (response.success) {
-            const rewardsData = response.data;
-            setVouchers(rewardsData.vouchers || []);
-            setConsolationPrize(rewardsData.consolation || null);
-        } else {
-            console.error("Failed to fetch rewards:", response.error);
-        }
-        setIsLoading(false);
-    }
-
-    // const fetchPrizeDistributionStats = async () => {
-    //     // Fetch prize distribution stats from API
-    //     const response = await getPrizeDistributionStats();
-    //     if (response.success) {
-    //         // Handle the prize distribution stats data
-    //         setPrizeSnapshot(response.data);
-    //     } else {
-    //         console.error("Failed to fetch prize distribution stats:", response.error);
-    //     }
-    //     setIsPrizeHistoryFetching(false);
-    // }
-
     useEffect(() => {
+        const fetchRewards = async () => {
+
+            const response = await getAllRewards();
+            if (response.success) {
+                const rewardsData = response.data;
+                setVouchers(rewardsData.vouchers || []);
+                setConsolationPrize(rewardsData.consolation || null);
+            } else {
+                console.error("Failed to fetch rewards:", response.error);
+            }
+            setIsLoading(false);
+        }
+
+        const fetchPrizeDistributionStats = async () => {
+            // Fetch prize distribution stats from API
+            const response = await getPrizeDistributionStats();
+            if (response.success) {
+                // Handle the prize distribution stats data
+                setPrizeSnapshot(response.data);
+            } else {
+                console.error("Failed to fetch prize distribution stats:", response.error);
+            }
+            setIsPrizeHistoryFetching(false);
+        }
+
+
         fetchRewards();
-        // fetchPrizeDistributionStats();
+        fetchPrizeDistributionStats();
     }, []);
 
     return (
@@ -113,28 +114,28 @@ export default function GiftsPage() {
                         <div className=" max-w-[300px] mt-2">
                             {isLoading ? (
                                 <LoaderIcon className=' text-xl text-primary-blue animate-spin' />
-                            ) : 
-                            consolationPrize ? (
-                                <div
-                                    className="px-8 py-6 bg-white  rounded-xl shadow-sm hover:shadow-md transition duration-200"
-                                >
-                                    <h3 className="text-2xl font-bold  text-slate-800 mb-2">Bags</h3>
-                                    <div className="text-gray-700 space-y-1 text-sm mt-4">
+                            ) :
+                                consolationPrize ? (
+                                    <div
+                                        className="px-8 py-6 bg-white  rounded-xl shadow-sm hover:shadow-md transition duration-200"
+                                    >
+                                        <h3 className="text-2xl font-bold  text-slate-800 mb-2">Bags</h3>
+                                        <div className="text-gray-700 space-y-1 text-sm mt-4">
 
-                                        <p className="flex justify-between">
-                                            <span className="font-medium">Total Quantity:</span>
-                                            <span>1000</span>
-                                        </p>
+                                            <p className="flex justify-between">
+                                                <span className="font-medium">Total Quantity:</span>
+                                                <span>1000</span>
+                                            </p>
 
-                                        <p className={`flex justify-between font-medium ${consolationPrize.quantity <= 100 ? "text-red-600" : "text-green-600"}`}>
-                                            <span className="font-medium">Remaining:</span>
-                                            <span >{consolationPrize.quantity}</span>
-                                        </p>
+                                            <p className={`flex justify-between font-medium ${consolationPrize.quantity <= 100 ? "text-red-600" : "text-green-600"}`}>
+                                                <span className="font-medium">Remaining:</span>
+                                                <span >{consolationPrize.quantity}</span>
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <p className=" text-gray-500">No consolation prize available.</p>
-                            )}
+                                ) : (
+                                    <p className=" text-gray-500">No consolation prize available.</p>
+                                )}
                         </div>
 
                     </div>

@@ -66,4 +66,7 @@ const FlipCard = forwardRef(({ img, handleCardClick }, ref) => {
   );
 });
 
+// FIX ESLINT ♦ Add displayName
+FlipCard.displayName = "FlipCard";
+
 export default FlipCard;

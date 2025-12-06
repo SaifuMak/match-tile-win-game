@@ -13,7 +13,7 @@ export default function DeleteUserModal({ open, onClose, user, onDelete, isReque
 
         <div className="mb-6 text-gray-700 leading-relaxed">
           <p>
-            You're about to delete participant <strong>{user?.name}</strong>.  
+            You&apos;re  about to delete participant <strong>{user?.name}</strong>.  
             This action cannot be undone.
             <br />
             Are you sure you want to continue?

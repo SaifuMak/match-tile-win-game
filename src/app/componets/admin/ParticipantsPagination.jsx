@@ -8,22 +8,30 @@ import Pagination from '../Pagination';
 function ParticipantsPagination({ data, getParticipants }) {
 
     const [query, setQuery] = useState("");
-
-    const [nextPage, setNextPage] = useState(null); // Next page URL
-    const [prevPage, setPrevPage] = useState(null); // Previous page URL
     const [currentPage, setCurrentPage] = useState(1)
-    const [totalPages, setTotalPages] = useState(null)
 
-    useEffect(() => {
-        // setCurrentPage(page)
-        const nextpage = getPageNumber(data.next)
-        const previous = getPageNumber(data.previous)
-        setNextPage(nextpage)
-        setPrevPage(previous)
+    // const [nextPage, setNextPage] = useState(null); // Next page URL
+    // const [prevPage, setPrevPage] = useState(null); // Previous page URL
+    // const [currentPage, setCurrentPage] = useState(1)
+    // const [totalPages, setTotalPages] = useState(null)
 
-        const totalPages = getTotalPagesCount(data.count, 5)
-        setTotalPages(totalPages)
-    }, [data]);
+     const nextPage = data ? getPageNumber(data.next) : null;
+    const prevPage = data ? getPageNumber(data.previous) : null;
+    const totalPages = data ? getTotalPagesCount(data.count, 5) : null;
+
+
+    // useEffect(() => {
+    //     if (!data) return;
+    //     // setCurrentPage(page)
+    //     const nextpage = getPageNumber(data.next)
+    //     const previous = getPageNumber(data.previous)
+    //     setNextPage(nextpage)
+    //     setPrevPage(previous)
+
+    //     const totalPages = getTotalPagesCount(data.count, 5)
+    //     setTotalPages(totalPages)
+    // }, [data]);
+
 
 
     return (

@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import PageLoader from "../componets/PageLoader"
 import LoaderIcon from "../componets/LoaderIcon"
 
-export default function login() {
+export default function Login() {
     const router = useRouter();
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)

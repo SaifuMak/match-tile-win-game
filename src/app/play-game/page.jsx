@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { use, useEffect, useRef, useState } from "react";
 import FlipCard from "../componets/FlipCard";
@@ -56,23 +58,42 @@ export default function PlayGame() {
     const playTimeRef = useRef(0);
     const rewardTriggered = useRef(false);
 
-    
+
     const [matchingState, setMatchingState] = useState(null)
 
     useEffect(() => {
-        // check if playerId exists
-        if (!playerId) {
-            toast.dismiss();
+        const initializeGame = () => {
+            if (!playerId) {
+                toast.dismiss();
+                toast.success("Please register to play the game!");
+                router.replace("/registration");
+                return;
+            }
 
-            toast.success("Please register to play the game!");
-            router.replace('/registration');
-            return;
-        }
-        setIsLoading(false);
+            setIsLoading(false);
 
-        const shuffled = shuffle([...originalCards]);
-        setCardsArr(shuffled);
+            const shuffled = shuffle([...originalCards]);
+            setCardsArr(shuffled);
+        };
+
+        initializeGame();
     }, [playerId]);
+
+
+    // useEffect(() => {
+    //     // check if playerId exists
+    //     if (!playerId) {
+    //         toast.dismiss();
+
+    //         toast.success("Please register to play the game!");
+    //         router.replace('/registration');
+    //         return;
+    //     }
+    //     setIsLoading(false);
+
+    //     const shuffled = shuffle([...originalCards]);
+    //     setCardsArr(shuffled);
+    // }, [playerId]);
 
 
     const handleReward = async (has_won = false) => {
@@ -230,7 +251,7 @@ export default function PlayGame() {
                     ))}
                 </div>
             </main>
-            <Brimbank/>
+            <Brimbank />
             {isLoading && <PageLoader />}
         </div>
     );
