@@ -15,7 +15,7 @@ export default function GiftsPage() {
 
 
     const fetchRewards = async () => {
-        // Fetch rewards data from API
+        
         const response = await getAllRewards();
         if (response.success) {
             const rewardsData = response.data;
