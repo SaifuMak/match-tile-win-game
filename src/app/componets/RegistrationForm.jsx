@@ -116,7 +116,7 @@ export default function RegistrationForm() {
                 </div>
 
 
-                <button type="submit" className=" mt-10 lg:mt-12 xl:w-[190px] flex-center mx-auto w-[170px] xl:h-[45px] h-[40px] cursor-pointer  bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
+                <button type="submit" disabled={isLoading} className=" mt-10 lg:mt-12 xl:w-[190px] flex-center mx-auto w-[170px] xl:h-[45px] h-[40px] cursor-pointer  bg-white text-primary-blue xl:text-xl font-semibold rounded-md hover:bg-gray-200 transition">
                     {isLoading ? <LoaderIcon /> : "START"}
                 </button>
             </form>

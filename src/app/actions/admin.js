@@ -66,7 +66,7 @@ export const getAllRewards = async () => {
 
 export  const getPrizeDistributionStats = async () => {
     try {
-        const response = await AXIOS_INSTANCE.get(`/api/prize-reset-snapshot/`);  // Adjust endpoint as needed
+        const response = await AXIOS_INSTANCE.get(`/api/weekly-rewards-summary/`);  // Adjust endpoint as needed
         return { success: true, data: response.data };
     } catch (error) {
         console.error('Prize distribution stats fetching error:', error);

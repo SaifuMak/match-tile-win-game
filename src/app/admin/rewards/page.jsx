@@ -7,6 +7,7 @@ import LoaderIcon from "@/app/componets/LoaderIcon";
 import PrizeSnapShot from "@/app/componets/admin/PrizeSnapShot";
 
 export default function GiftsPage() {
+
     const [vouchers, setVouchers] = useState([])
     const [consolationPrize, setConsolationPrize] = useState(null)
     const [prizeSnapshot, setPrizeSnapshot] = useState(null);
@@ -74,7 +75,7 @@ export default function GiftsPage() {
                                         key={voucher.id}
                                         className="px-8 py-6 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-200"
                                     >
-                                        <h3 className="text-2xl font-bold text-slate-800 mb-2">
+                                        <h3 className="text-2xl font-semibold text-slate-800 mb-2">
                                             {voucher.name}
                                         </h3>
 
@@ -119,7 +120,7 @@ export default function GiftsPage() {
                                     <div
                                         className="px-8 py-6 bg-white  rounded-xl shadow-sm hover:shadow-md transition duration-200"
                                     >
-                                        <h3 className="text-2xl font-bold  text-slate-800 mb-2">Bags</h3>
+                                        <h3 className="text-2xl font-semibold  text-slate-800 mb-2">Bags</h3>
                                         <div className="text-gray-700 space-y-1 text-sm mt-4">
 
                                             <p className="flex justify-between">
@@ -144,9 +145,10 @@ export default function GiftsPage() {
                         <h2 className=" text-2xl font-semibold mb-5">Weekly Reward History</h2>
                         {isPrizeHistoryFetching ? (
                             <LoaderIcon className=' text-xl text-primary-blue animate-spin' />
-                        ) : prizeSnapshot && prizeSnapshot.length > 0 ? null : (
-                            <p className=" text-gray-500">No prize history available.</p>
-                        )}
+                        ) : prizeSnapshot && Object.keys(prizeSnapshot).length > 0
+                            ? null : (
+                                <p className=" text-gray-500">No prize history available.</p>
+                            )}
                         <PrizeSnapShot data={prizeSnapshot} />
                     </div>
 
