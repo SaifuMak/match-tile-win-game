@@ -3,8 +3,8 @@ import Navbar from "@/app/componets/admin/Navbar";
 import Sidebar from "@/app/componets/admin/Sidebar";
 import { useEffect, useState } from "react";
 import { getAllRewards, getPrizeDistributionStats } from "@/app/actions/admin";
-// import PrizeSnapshotCard from "@/app/componets/admin/PrizeSnapShot";
 import LoaderIcon from "@/app/componets/LoaderIcon";
+import PrizeSnapShot from "@/app/componets/admin/PrizeSnapShot";
 
 export default function GiftsPage() {
     const [vouchers, setVouchers] = useState([])
@@ -140,15 +140,15 @@ export default function GiftsPage() {
 
                     </div>
 
-                    {/* <div className=" w-full  flex flex-col mt-16  ">
+                    <div className=" w-full  flex flex-col mt-16  ">
                         <h2 className=" text-2xl font-semibold mb-5">Weekly Reward History</h2>
                         {isPrizeHistoryFetching ? (
                             <LoaderIcon className=' text-xl text-primary-blue animate-spin' />
                         ) : prizeSnapshot && prizeSnapshot.length > 0 ? null : (
                             <p className=" text-gray-500">No prize history available.</p>
                         )}
-                        <PrizeSnapshotCard data={prizeSnapshot} />
-                    </div> */}
+                        <PrizeSnapShot data={prizeSnapshot} />
+                    </div>
 
                 </div>
 
