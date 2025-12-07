@@ -61,7 +61,7 @@ export default function GiftsPage() {
                     <h1 className=" text-3xl font-bold">Rewards</h1>
 
                     <div className="w-full flex flex-col mt-16">
-                        <h2 className="text-2xl font-semibold mb-5">Gift Cards</h2>
+                        <h2 className="text-2xl font-semibold mb-5">Gift Cards <span className=" text-lg">(This Week)</span></h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-10 max-w-10/12 mt-2">
 
@@ -111,7 +111,7 @@ export default function GiftsPage() {
 
 
                     <div className=" w-full  flex flex-col mt-16  ">
-                        <h2 className=" text-2xl font-semibold mb-5">Consolation Prizes</h2>
+                        <h2 className=" text-2xl font-semibold  mb-5">Consolation Prizes <span className=" text-lg">(This Week)</span></h2>
                         <div className=" max-w-[300px] mt-2">
                             {isLoading ? (
                                 <LoaderIcon className=' text-xl text-primary-blue animate-spin' />
